@@ -1,0 +1,26 @@
+services:
+  webapp:
+    image: wordpress
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: dbapp
+      WORDPRESS_DB_USER: myuser
+      WORDPRESS_DB_PASSWORD: mypassword
+      WORDPRESS_DB_NAME: wordpressdb
+    volumes:
+      - wordpress:/var/www/html
+  dbapp:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: wordpressdb                                                                                                                  
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypassword
+    volumes:
+      - db:/var/lib/mysql
+volumes:
+ wordpress:
+ db:
